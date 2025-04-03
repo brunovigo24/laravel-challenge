@@ -27,7 +27,7 @@
 
             <div class="mb-3">
                 <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
-                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="000.000.000-00" required>
+                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="000.000.000-00" required oninput="this.value = this.value.replace(/\D/g, '')">
             </div>
 
             <h4 class="mt-4">Endereço</h4>
@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="phone" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="(00) 00000-0000" required>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="(00) 00000-0000" required oninput="this.value = this.value.replace(/\D/g, '')">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">E-mail</label>

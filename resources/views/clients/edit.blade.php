@@ -41,7 +41,7 @@
 
             <div class="mb-3">
                 <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
-                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" value="{{ $client->cpf_cnpj }}" required>
+                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" value="{{ $client->cpf_cnpj }}" required oninput="this.value = this.value.replace(/\D/g, '')">
             </div>
 
             <h4 class="mt-4">Endereço</h4>
@@ -79,7 +79,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="phone" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $client->phone }}" required>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $client->phone }}" required oninput="this.value = this.value.replace(/\D/g, '')">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">E-mail</label>

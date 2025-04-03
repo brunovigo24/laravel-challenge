@@ -46,6 +46,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-center">
+            {{ $clients->links('pagination::bootstrap-4') }} 
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
