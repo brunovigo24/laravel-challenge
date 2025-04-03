@@ -30,6 +30,38 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'unique:clients,email',
+                function ($attribute, $value, $fail) {
+                    if (Client::where('email', $value)->exists()) {
+                        $fail('O e-mail já está em uso.');
+                    }
+                },
+            ],
+            'cpf_cnpj' => [
+                'required',
+                'string',
+                'max:18',
+                'unique:clients,cpf_cnpj',
+                function ($attribute, $value, $fail) {
+                    if (Client::where('cpf_cnpj', $value)->exists()) {
+                        $fail('O CPF/CNPJ já está em uso.');
+                    }
+                },
+            ],
+            'name' => 'required|string|max:255',
+            'cep' => 'required|string|max:9',
+            'street' => 'required|string|max:255',
+            'number' => 'required|string|max:10',
+            'neighborhood' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'state' => 'required|string|max:2',
+            'phone' => 'required|string|max:15',
+        ]);
+
         $created = $this->client->create([
             'name' => $request->name,
             'cpf_cnpj' => $request->cpf_cnpj,

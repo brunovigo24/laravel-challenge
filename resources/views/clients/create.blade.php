@@ -2,11 +2,21 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
+        <a href="{{ url('/clients') }}" class="btn btn-secondary mb-3">
             <i class="bi bi-arrow-left"></i> Voltar
         </a>
         <h2 class="mb-4">Cadastro de Cliente</h2>
         <p class="mb-4">Preencha os dados do cliente para cadastro no sistema.</p>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form action="{{ route('clients.store') }}" method="post" id="clientForm">
             @csrf

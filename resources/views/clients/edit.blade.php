@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
+        <a href="{{ url('/clients') }}" class="btn btn-secondary mb-3">
             <i class="bi bi-arrow-left"></i> Voltar
         </a>
         <h2 class="mb-4">Editar Cliente</h2>
@@ -16,6 +16,16 @@
         @if (session()->has('error'))
             <div class="alert alert-danger">
                 {{ session()->get('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 
