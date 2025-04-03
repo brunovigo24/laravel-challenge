@@ -7,7 +7,7 @@ Este projeto é uma aplicação Laravel para cadastro e gerenciamento de cliente
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/laravel-challenge.git
-   cd cadastro-cliente
+   cd laravel-challenge
    ```
 
 2. Instale as dependências do projeto:
