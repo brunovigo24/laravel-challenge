@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Clientes</h2>
+        <h2>Cadastro de clientes</h2>
         <a href="{{ route('clients.create') }}" class="btn btn-primary mb-3">Novo Cliente</a>
 
         @if(session('success'))
