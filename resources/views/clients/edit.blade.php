@@ -37,21 +37,7 @@
                 <input type="text" class="form-control" id="name" name="name" value="{{ $client->name }}" required>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Tipo de Documento</label>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="document_type" id="cpf" value="CPF" 
-                            {{ strlen($client->cpf_cnpj) <= 14 ? 'checked' : '' }}>
-                        <label class="form-check-label" for="cpf">CPF</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="document_type" id="cnpj" value="CNPJ" 
-                            {{ strlen($client->cpf_cnpj) > 14 ? 'checked' : '' }}>
-                        <label class="form-check-label" for="cnpj">CNPJ</label>
-                    </div>
-                </div>
-            </div>
+            <!-- Removido o campo Tipo de Documento -->
 
             <div class="mb-3">
                 <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
@@ -106,7 +92,38 @@
         </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: '{{ session('error') }}',
+                timer: 5000,
+                showConfirmButton: false
+            });
+        @endif
+
+        @if($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                timer: 5000,
+                showConfirmButton: false
+            });
+        @endif
+
         document.getElementById('cep').addEventListener('blur', function () {
             fetch(`https://viacep.com.br/ws/${this.value}/json/`)
                 .then(response => response.json())

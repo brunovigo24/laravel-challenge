@@ -13,21 +13,6 @@
             <input type="text" id="search" class="form-control" placeholder="Pesquisar por nome ou email...">
         </div>
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <table class="table table-bordered custom-rounded">
             <thead class="thead-light">
                 <tr>
@@ -49,10 +34,10 @@
                             <a href="{{ route('clients.edit', ['client'=> $client->id]) }}" class="btn btn-outline-secondary btn-sm" title="Editar Cliente">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('clients.destroy', ['client' => $client->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
+                            <form action="{{ route('clients.destroy', ['client' => $client->id]) }}" method="POST" style="display:inline;" class="delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Excluir Cliente">
+                                <button type="button" class="btn btn-outline-danger btn-sm delete-button" title="Excluir Cliente">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -63,7 +48,28 @@
         </table>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
+        @if($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                timer: 5000,
+                showConfirmButton: false
+            });
+        @endif
+
         document.getElementById('search').addEventListener('input', function() {
             const searchValue = this.value.toLowerCase();
             const rows = document.querySelectorAll('#clientTable tr');
@@ -77,6 +83,26 @@
                 } else {
                     row.style.display = 'none';
                 }
+            });
+        });
+
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const form = this.closest('.delete-form');
+                Swal.fire({
+                    title: 'Tem certeza?',
+                    text: "Você não poderá reverter esta ação!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sim, excluir!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

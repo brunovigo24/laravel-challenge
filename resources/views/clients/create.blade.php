@@ -26,20 +26,6 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Tipo de Documento</label>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="document_type" id="cpf" value="CPF" checked>
-                        <label class="form-check-label" for="cpf">CPF</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="document_type" id="cnpj" value="CNPJ">
-                        <label class="form-check-label" for="cnpj">CNPJ</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
                 <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
                 <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="000.000.000-00" required>
             </div>
@@ -92,7 +78,18 @@
         </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        @if($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                timer: 5000,
+                showConfirmButton: false
+            });
+        @endif
+
         document.getElementById('cep').addEventListener('blur', function () {
             fetch(`https://viacep.com.br/ws/${this.value}/json/`)
                 .then(response => response.json())
